@@ -58,9 +58,9 @@ class PhoneNumberValidatorTest extends TestCase
         ?string $regionPath = null,
         PhoneNumberFormat|int|null $format = null,
         ?string $requiredRegion = null,
-        ?string $validation = null,
+        ?string $validationType = null,
     ): void {
-        $constraint = new PhoneNumber($format, $type, $defaultRegion, $regionPath, requiredRegion: $requiredRegion, validation: $validation);
+        $constraint = new PhoneNumber($format, $type, $defaultRegion, $regionPath, requiredRegion: $requiredRegion, validationType: $validationType);
 
         if (true === $violates) {
             $constraintViolationBuilder = $this->createMock(ConstraintViolationBuilderInterface::class);
@@ -118,7 +118,7 @@ class PhoneNumberValidatorTest extends TestCase
      * 4 => Region Path (optional).
      * 5 => Format (optional)
      * 6 => Required region (optional).
-     * 7 => Validation mode (optional).
+     * 7 => validationType (optional).
      *
      * @return iterable<array{
      *     string|LibPhoneNumber|null,
@@ -179,11 +179,11 @@ class PhoneNumberValidatorTest extends TestCase
         yield ['+33650505050', false, null, null, null, PhoneNumberFormat::E164, 'FR'];
         yield ['+33650505050', true, null, null, null, PhoneNumberFormat::E164, 'GB'];
 
-        // Possible but not valid (libphonenumber): passes only with IS_POSSIBLE_NUMBER
+        // Possible but not valid (libphonenumber): passes only with VALIDATION_TYPE_POSSIBLE_NUMBER
         yield ['+12530000000', true];
-        yield ['+12530000000', false, null, null, null, null, null, PhoneNumber::IS_POSSIBLE_NUMBER];
-        yield ['+12530000000', true, null, null, null, null, null, PhoneNumber::IS_VALID_NUMBER];
-        yield ['+12530000000', true, PhoneNumber::MOBILE, null, null, null, null, PhoneNumber::IS_POSSIBLE_NUMBER];
+        yield ['+12530000000', false, null, null, null, null, null, PhoneNumber::VALIDATION_TYPE_POSSIBLE_NUMBER];
+        yield ['+12530000000', true, null, null, null, null, null, PhoneNumber::VALIDATION_TYPE_VALID_NUMBER];
+        yield ['+12530000000', true, PhoneNumber::MOBILE, null, null, null, null, PhoneNumber::VALIDATION_TYPE_POSSIBLE_NUMBER];
 
         // Ensure BC promise is respected
         yield ['+33606060606', false, 'mobile', null, null, 0];
@@ -218,7 +218,7 @@ class PhoneNumberDummy
     /* @phpstan-ignore-next-line */
     private PhoneNumber $phoneNumber2;
 
-    #[PhoneNumber(validation: PhoneNumber::IS_POSSIBLE_NUMBER)]
+    #[PhoneNumber(validationType: PhoneNumber::VALIDATION_TYPE_POSSIBLE_NUMBER)]
     /* @phpstan-ignore-next-line */
     private PhoneNumber $phoneNumber3;
 
