@@ -82,7 +82,13 @@ class PhoneNumberValidator extends ConstraintValidator
             $value = $this->phoneUtil->format($phoneNumber, $constraint->format ?? $this->format);
         }
 
-        if (false === $this->phoneUtil->isValidNumber($phoneNumber)) {
+        if (PhoneNumberConstraint::IS_POSSIBLE_NUMBER === $constraint->validation) {
+            if (false === $this->phoneUtil->isPossibleNumber($phoneNumber)) {
+                $this->addViolation($value, $constraint);
+
+                return;
+            }
+        } elseif (false === $this->phoneUtil->isValidNumber($phoneNumber)) {
             $this->addViolation($value, $constraint);
 
             return;
@@ -92,6 +98,9 @@ class PhoneNumberValidator extends ConstraintValidator
             $this->addViolation($value, $constraint);
         }
 
+        // When validation is IS_POSSIBLE_NUMBER, a number may pass isPossibleNumber() but not isValidNumber().
+        // getNumberType() can then be UNKNOWN or otherwise not match a restricted type; we still require a
+        // matching type so the constraint does not silently accept ambiguous numbers.
         $validTypes = [];
         foreach ($constraint->getTypes() as $type) {
             switch ($type) {

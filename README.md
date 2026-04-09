@@ -268,6 +268,17 @@ private $mobilePhoneNumber;
 private $fixedOrVoipPhoneNumber;
 ```
 
+By default, validation uses libphonenumber’s `isValidNumber()` (constraint value `AssertPhoneNumber::IS_VALID_NUMBER`). You can relax this to `isPossibleNumber()` with `AssertPhoneNumber::IS_POSSIBLE_NUMBER` — useful when you want to accept numbers that match length and national format but are not (yet) assigned in the numbering plan.
+
+```php
+use Misd\PhoneNumberBundle\Validator\Constraints\PhoneNumber as AssertPhoneNumber;
+
+#[AssertPhoneNumber(validation: AssertPhoneNumber::IS_POSSIBLE_NUMBER)]
+private $phoneNumber;
+```
+
+**Warning:** `IS_POSSIBLE_NUMBER` is more permissive than `IS_VALID_NUMBER`. It does not guarantee that the number is actually allocated or dialable as a real subscriber line. If you also restrict `type` (e.g. mobile vs fixed-line), a “possible but not valid” number may still fail validation when `getNumberType()` does not match — this avoids silently accepting ambiguous input.
+
 ### Translations
 
 The bundle contains translations for the form field and validation constraints.
