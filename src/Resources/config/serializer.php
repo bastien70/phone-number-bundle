@@ -6,7 +6,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use Misd\PhoneNumberBundle\Serializer\Normalizer\PhoneNumberNormalizer;
 
-return function (ContainerConfigurator $container): void {
+return static function (ContainerConfigurator $container): void {
     $container->services()
         ->set(PhoneNumberNormalizer::class)
             ->tag('serializer.normalizer')

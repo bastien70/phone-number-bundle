@@ -8,7 +8,7 @@ use libphonenumber\PhoneNumberUtil;
 use Misd\PhoneNumberBundle\Templating\Helper\PhoneNumberHelper;
 use Misd\PhoneNumberBundle\Twig\Extension\PhoneNumberHelperExtension;
 
-return function (ContainerConfigurator $container): void {
+return static function (ContainerConfigurator $container): void {
     $container->services()
         ->set(PhoneNumberHelper::class)
             ->args([

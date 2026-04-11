@@ -138,7 +138,7 @@ class PhoneNumberType extends AbstractType
     {
         $resolver->setDefaults([
             'widget' => self::WIDGET_SINGLE_TEXT,
-            'compound' => function (Options $options): bool {
+            'compound' => static function (Options $options): bool {
                 return self::WIDGET_SINGLE_TEXT !== $options['widget'];
             },
             'default_region' => PhoneNumberUtil::UNKNOWN_REGION,
