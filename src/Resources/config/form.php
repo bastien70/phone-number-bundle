@@ -7,7 +7,7 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 use Misd\PhoneNumberBundle\Form\Extension\PhoneNumberTypeEqualityExtension;
 use Misd\PhoneNumberBundle\Form\Type\PhoneNumberType;
 
-return function (ContainerConfigurator $container): void {
+return static function (ContainerConfigurator $container): void {
     $container->services()
         ->set(PhoneNumberType::class)
             ->tag('form.type', ['alias' => 'phone_number'])

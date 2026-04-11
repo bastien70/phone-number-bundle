@@ -53,9 +53,8 @@ class PhoneNumberTypeTest extends TestCase
 
         if (method_exists($form, 'getTransformationFailure') && $failure = $form->getTransformationFailure()) {
             throw $failure;
-        } else {
-            $this->assertTrue($form->isSynchronized());
         }
+        $this->assertTrue($form->isSynchronized());
 
         $view = $form->createView();
 
@@ -103,9 +102,8 @@ class PhoneNumberTypeTest extends TestCase
 
         if (method_exists($form, 'getTransformationFailure') && $failure = $form->getTransformationFailure()) {
             throw $failure;
-        } else {
-            $this->assertTrue($form->isSynchronized());
         }
+        $this->assertTrue($form->isSynchronized());
 
         $view = $form->createView();
 

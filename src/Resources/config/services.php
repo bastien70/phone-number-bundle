@@ -10,7 +10,7 @@ use libphonenumber\PhoneNumberToTimeZonesMapper;
 use libphonenumber\PhoneNumberUtil;
 use libphonenumber\ShortNumberInfo;
 
-return function (ContainerConfigurator $container): void {
+return static function (ContainerConfigurator $container): void {
     $container->services()
         ->set(PhoneNumberUtil::class)
             ->factory([PhoneNumberUtil::class, 'getInstance'])

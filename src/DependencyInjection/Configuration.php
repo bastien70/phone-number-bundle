@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder('misd_phone_number');
         $rootNode = $treeBuilder->getRootNode();
 
-        $normalizer = function ($value) {
+        $normalizer = static function ($value) {
             if (\is_bool($value)) {
                 return [
                     'enabled' => $value,
@@ -68,7 +68,7 @@ class Configuration implements ConfigurationInterface
                             ->values(PhoneNumberFormat::cases())
                             ->defaultValue(PhoneNumberFormat::E164)
                             ->beforeNormalization()
-                                ->ifTrue(fn ($value) => \is_string($value) || \is_int($value))
+                                ->ifTrue(static fn ($value) => \is_string($value) || \is_int($value))
                                 ->then($normalizeFormat)
                             ->end()
                         ->end()
@@ -97,7 +97,7 @@ class Configuration implements ConfigurationInterface
                             ->values(PhoneNumberFormat::cases())
                             ->defaultValue(PhoneNumberFormat::E164)
                             ->beforeNormalization()
-                                ->ifTrue(fn ($value) => \is_string($value) || \is_int($value))
+                                ->ifTrue(static fn ($value) => \is_string($value) || \is_int($value))
                                 ->then($normalizeFormat)
                             ->end()
                         ->end()
@@ -116,7 +116,7 @@ class Configuration implements ConfigurationInterface
                             ->values(PhoneNumberFormat::cases())
                             ->defaultValue(PhoneNumberFormat::INTERNATIONAL)
                             ->beforeNormalization()
-                                ->ifTrue(fn ($value) => \is_string($value) || \is_int($value))
+                                ->ifTrue(static fn ($value) => \is_string($value) || \is_int($value))
                                 ->then($normalizeFormat)
                             ->end()
                         ->end()
