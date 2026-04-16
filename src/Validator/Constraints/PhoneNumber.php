@@ -63,7 +63,7 @@ class PhoneNumber extends Constraint
     public string $validationType = self::VALIDATION_TYPE_VALID_NUMBER;
 
     /**
-     * @param PhoneNumberFormat|null $format     Specify the format (\libphonenumber\PhoneNumberFormat::*)
+     * @param PhoneNumberFormat|null $format         Specify the format (\libphonenumber\PhoneNumberFormat::*)
      * @param string|string[]|null   $type
      * @param string|null            $validationType One of self::VALIDATION_TYPE_VALID_NUMBER (default) or self::VALIDATION_TYPE_POSSIBLE_NUMBER
      * @param array<mixed>           $options
